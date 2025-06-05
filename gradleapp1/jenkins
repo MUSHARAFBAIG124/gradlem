@@ -2,6 +2,7 @@ pipeline {
     agent any  // Use any available agent
 
     tools {
+        gradle 'Gradle'
         jdk 'JDK'          // Make sure 'JDK' matches your Jenkins JDK installation name
     }
     stages {
@@ -14,7 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir('gradleapp1') {
-                    sh './gradlew build'
+                    sh 'gradle build'
                 }
             }
         }
@@ -22,7 +23,7 @@ pipeline {
         stage('Test') {
             steps {
                 dir('gradleapp1') {
-                    sh './gradlew test'
+                    sh 'gradle test'
                 }
             }
         }
@@ -30,7 +31,7 @@ pipeline {
         stage('Run Application') {
             steps {
                 dir('gradleapp1') {
-                    sh './gradlew run'
+                    sh 'gradle run'
                 }
             }
         }
