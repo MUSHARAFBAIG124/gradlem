@@ -2,8 +2,7 @@ pipeline {
     agent any  // Use any available agent
 
     tools {
-        gradle 'Gradle'  // Ensure this matches the name configured in Jenkins
-        jdk 'JDK'
+        jdk 'JDK'          // Make sure 'JDK' matches your Jenkins JDK installation name
     }
     stages {
         stage('Checkout') {
@@ -14,25 +13,27 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'gradle build'  // Run Maven build
+                dir('gradleapp1') {
+                    sh './gradlew build'
+                }
             }
         }
 
-       stage('Test') {
-           steps {
-               sh 'gradle test'  // Run unit tests
-           }
+        stage('Test') {
+            steps {
+                dir('gradleapp1') {
+                    sh './gradlew test'
+                }
+            }
         }
 
-              
         stage('Run Application') {
             steps {
-                // Start the JAR application
-                sh 'gradle run'
+                dir('gradleapp1') {
+                    sh './gradlew run'
+                }
             }
         }
-
-        
     }
 
     post {
@@ -44,3 +45,4 @@ pipeline {
         }
     }
 }
+
